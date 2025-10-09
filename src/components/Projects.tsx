@@ -33,7 +33,7 @@ export function Projects() {
       featured: true,
     },
     {
-      title: "Weather Dashboard",
+      title: "Weather Dashboard App",
       description: "Real-time weather dashboard with location-based forecasts, interactive maps, weather alerts, and beautiful data visualizations.",
       image: "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=600&h=400&fit=crop",
       technologies: ["Next.js", "TypeScript", "Weather API", "Maps API"],
