@@ -76,7 +76,7 @@ export function Contact() {
                     className="bg-card/50 border-border focus:border-primary transition-colors duration-300 resize-none"
                   />
                 </div>
-                <Button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground border-0 py-3 text-lg transition-all duration-300 transform hover:scale-[1.02]">
+                <Button className="w-full bg-primary hover:bg-primary/  text-primary-foreground border-0 py-3 text-lg transition-all duration-300 transform hover:scale-[1.02]">
                   Send Message
                 </Button>
               </form>
