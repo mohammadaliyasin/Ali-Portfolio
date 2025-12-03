@@ -3,13 +3,13 @@ import { Button } from "./ui/button";
 export function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-1">
         <div className="flex justify-between items-center h-20">
-          <div className="text-2xl font-medium text-foreground">ali.</div>
+          <div className="text-4xl font-medium text-foreground">ali.</div>
 
           <nav className="hidden md:flex space-x-10">
             <a
-              href="#about"
+              href="#hero"
               className="text-muted-foreground hover:text-foreground transition-colors duration-300 relative group"
             >
               About
@@ -52,6 +52,9 @@ export function Header() {
             <Button
               variant="outline"
               className="bg-card border-border hover:bg-accent transition-all duration-300"
+              size={
+                window.innerWidth >= 768 ? "lg" : "sm"
+              }
             >
               Resume
             </Button>

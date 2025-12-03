@@ -9,7 +9,7 @@ export function Projects() {
       title: "Nestays – PG Booking Web App",
       description:
         "A responsive web application for college students to search, filter, and book verified PGs and flats. Includes reviews, online booking, and secure authentication with a modern UI.",
-      image: "https://nestays.in/assets/login-bg.png",
+      image: "src/assets/nestays.png",
       technologies: ["Flutter Web", "Firebase", "REST API", "Responsive UI"],
       demoUrl: "https://nestays.in/#/login",
       codeUrl: "#",
@@ -20,7 +20,7 @@ export function Projects() {
       description:
         "A smart Flutter app integrated with AI tools for real-time note validation, content summarization, and enhancement. Designed to improve productivity and note accuracy using on-device intelligence.",
       image:
-        "https://github.com/mohammadaliyasin/Mind-Pad/raw/main/assets/images/app_banner.png",
+        "src/assets/mindpad.png",
       technologies: ["Flutter", "AI APIs", "GetX", "Firebase"],
       demoUrl: "https://github.com/mohammadaliyasin/Mind-Pad",
       codeUrl: "https://github.com/mohammadaliyasin/Mind-Pad",
@@ -41,7 +41,7 @@ export function Projects() {
       description:
         "A holistic meditation and yoga mobile app featuring AI-powered yoga posture detection, meditation music, and a vibrant community to track wellness progress and mindfulness goals.",
       image:
-        "https://github.com/mohammadaliyasin/NirvaMind/raw/main/assets/images/app_splash.png",
+        "src/assets/Nirvamind.png",
       technologies: ["Flutter", "TensorFlow Lite", "Camera API", "Firebase"],
       demoUrl: "https://github.com/mohammadaliyasin/NirvaMind",
       codeUrl: "https://github.com/mohammadaliyasin/NirvaMind",
