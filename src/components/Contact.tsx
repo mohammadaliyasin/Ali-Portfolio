@@ -30,8 +30,19 @@ export function Contact() {
                 Send a Message
               </CardTitle>
             </CardHeader>
+
             <CardContent>
-              <form className="space-y-6">
+              <form
+                className="space-y-6"
+                action="https://formsubmit.co/mohammadaliyasin6@gmail.com"
+                method="POST"
+              >
+                {/* Disable Captcha */}
+                <input type="hidden" name="_captcha" value="false" />
+
+                {/* (Optional) Redirect to a Thank You page */}
+                {/* <input type="hidden" name="_next" value="https://yourdomain.com/thankyou" /> */}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name" className="text-foreground">
@@ -39,44 +50,59 @@ export function Contact() {
                     </Label>
                     <Input
                       id="name"
+                      name="name"
                       placeholder="Your name"
+                      required
                       className="bg-card/50 border-border focus:border-primary transition-colors duration-300"
                     />
                   </div>
+
                   <div className="space-y-2">
                     <Label htmlFor="email" className="text-foreground">
                       Email
                     </Label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       placeholder="your@email.com"
+                      required
                       className="bg-card/50 border-border focus:border-primary transition-colors duration-300"
                     />
                   </div>
                 </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="subject" className="text-foreground">
                     Subject
                   </Label>
                   <Input
                     id="subject"
+                    name="subject"
                     placeholder="Project inquiry"
+                    required
                     className="bg-card/50 border-border focus:border-primary transition-colors duration-300"
                   />
                 </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="message" className="text-foreground">
                     Message
                   </Label>
                   <Textarea
                     id="message"
+                    name="message"
                     placeholder="Tell me about your project..."
                     rows={5}
+                    required
                     className="bg-card/50 border-border focus:border-primary transition-colors duration-300 resize-none"
                   />
                 </div>
-                <Button className="w-full bg-primary hover:bg-primary/  text-primary-foreground border-0 py-3 text-lg transition-all duration-300 transform hover:scale-[1.02]">
+
+                <Button
+                  type="submit"
+                  className="w-full bg-primary hover:bg-primary/  text-primary-foreground border-0 py-3 text-lg transition-all duration-300 transform hover:scale-[1.02]"
+                >
                   Send Message
                 </Button>
               </form>
@@ -84,7 +110,6 @@ export function Contact() {
           </Card>
 
           <div className="space-y-8">
-            
             <Card className="group bg-gradient-to-br from-card to-secondary/30 backdrop-blur-xl border-border hover:border-accent transition-all duration-500 hover:transform hover:scale-[1.02]">
               <CardContent className="p-8">
                 <div className="flex items-center space-x-6">
