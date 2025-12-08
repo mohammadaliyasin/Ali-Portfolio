@@ -173,7 +173,7 @@ export function Contact() {
             </Card>
 
             <a
-              href="https://www.linkedin.com/in/mohammad-ali-yasin/"
+              href="https://www.linkedin.com/in/ali-yasin-0166a0233/"
               target="_blank"
               rel="noopener noreferrer"
             >
