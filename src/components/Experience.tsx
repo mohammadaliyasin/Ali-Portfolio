@@ -5,7 +5,7 @@ const experiences = [
     num: "01",
     title: "Flutter App Developer",
     company: "DocZappoint",
-    period: "Jan 2025 – Jun 2025",
+    period: "Jan 2025 – Jan 2026",
     current: true,
     achievements: [
       "Built the DocZappoint mobile app (doctor consultations, appointment booking, medical records)",
@@ -20,7 +20,7 @@ const experiences = [
     num: "02",
     title: "App Developer",
     company: "2ByteCode",
-    period: "Mar 2023 – Oct 2024",
+    period: "Sept 2023 – Oct 2024",
     current: false,
     achievements: [
       "Built and shipped Flutter Academy app — now live on the Play Store",
@@ -35,7 +35,7 @@ const experiences = [
     num: "03",
     title: "Developer Intern",
     company: "Kartexa",
-    period: "May 2023 – Jul 2024",
+    period: "May 2023 – Jul 2023",
     current: false,
     achievements: [
       "Built key modules for StoxG — a Binance-inspired finance app with live news feed",
