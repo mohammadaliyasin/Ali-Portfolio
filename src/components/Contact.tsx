@@ -1,202 +1,195 @@
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { useState } from "react";
+import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Label } from "./ui/label";
+import { Github, Linkedin, Mail, MapPin, Send, ExternalLink } from "lucide-react";
+
+const contactItems = [
+  {
+    Icon: Mail,
+    label: "email",
+    value: "mohammadaliyasin6@gmail.com",
+    href: "mailto:mohammadaliyasin6@gmail.com",
+    note: "responds within 24h",
+    external: false,
+  },
+  {
+    Icon: Linkedin,
+    label: "linkedin",
+    value: "ali-yasin-0166a0233",
+    href: "https://www.linkedin.com/in/ali-yasin-0166a0233/",
+    note: "connect professionally",
+    external: true,
+  },
+  {
+    Icon: Github,
+    label: "github",
+    value: "mohammadaliyasin",
+    href: "https://github.com/mohammadaliyasin",
+    note: "open source work",
+    external: true,
+  },
+  {
+    Icon: MapPin,
+    label: "location",
+    value: "Remote · Worldwide",
+    href: "#",
+    note: "available for remote roles",
+    external: false,
+  },
+];
 
 export function Contact() {
-  return (
-    <section id="contact" className="py-24 relative overflow-hidden">
-      {/* Background effects using grayscale */}
-      <div className="absolute inset-0 bg-gradient-to-br from-muted/20 via-accent/10 to-secondary/20"></div>
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-muted/30 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-accent/30 rounded-full blur-3xl"></div>
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
-      <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl lg:text-5xl text-foreground">
-            Let's Build Something Amazing
+  return (
+    <section id="contact" className="py-20 sm:py-28 relative overflow-hidden">
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+      {/* faint green glow corners */}
+      <div
+        className="absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-[0.05]"
+        style={{ background: "radial-gradient(circle, var(--green) 0%, transparent 70%)" }}
+      />
+      <div
+        className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full opacity-[0.05]"
+        style={{ background: "radial-gradient(circle, var(--green) 0%, transparent 70%)" }}
+      />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* Header */}
+        <div className="mb-12 sm:mb-16">
+          <p className="section-num mb-2">// 05 — contact</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
+            Let's <span className="text-green">Connect</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Have a project in mind? Let's discuss how we can work together to
-            bring your ideas to life.
+          <p className="text-base text-muted-foreground mt-3 max-w-lg leading-relaxed">
+            Have a project in mind or want to collaborate? I'm always open to discussing new opportunities.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <Card className="bg-gradient-to-br from-card to-secondary/30 backdrop-blur-xl border-border hover:border-accent transition-all duration-500">
-            <CardHeader>
-              <CardTitle className="text-2xl text-foreground">
-                Send a Message
-              </CardTitle>
-            </CardHeader>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8 lg:gap-12">
 
-            <CardContent>
+          {/* Contact Form */}
+          <Card className="border-border card-hover shimmer-card bg-card overflow-hidden relative">
+            {/* Green top line */}
+            <div className="absolute top-0 left-0 right-0 h-[2px]" style={{ background: "var(--green)" }} />
+
+            <CardContent className="p-5 sm:p-7">
+              <div className="flex items-center gap-2 mb-6">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center"
+                  style={{ background: "var(--green-muted)", border: "1px solid var(--green-border)" }}
+                >
+                  <Send className="w-4 h-4 text-green" />
+                </div>
+                <span className="font-mono text-sm text-foreground font-medium">send_message()</span>
+              </div>
+
               <form
-                className="space-y-6"
+                className="space-y-4"
                 action="https://formsubmit.co/mohammadaliyasin6@gmail.com"
                 method="POST"
               >
-                {/* Disable Captcha */}
                 <input type="hidden" name="_captcha" value="false" />
 
-                {/* (Optional) Redirect to a Thank You page */}
-                {/* <input type="hidden" name="_next" value="https://yourdomain.com/thankyou" /> */}
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-foreground">
-                      Name
-                    </Label>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="name" className="text-foreground text-xs font-mono font-medium">// name</Label>
                     <Input
-                      id="name"
-                      name="name"
-                      placeholder="Your name"
-                      required
-                      className="bg-card/50 border-border focus:border-primary transition-colors duration-300"
+                      id="name" name="name" placeholder="Your name" required
+                      value={form.name}
+                      onChange={(e) => setForm((s) => ({ ...s, name: e.target.value }))}
+                      className="bg-secondary border-border text-foreground placeholder:text-muted-foreground/50 focus-visible:border-green focus-visible:ring-0 focus-visible:ring-offset-0 font-mono text-sm transition-colors duration-200"
                     />
                   </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-foreground">
-                      Email
-                    </Label>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="email" className="text-foreground text-xs font-mono font-medium">// email</Label>
                     <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="your@email.com"
-                      required
-                      className="bg-card/50 border-border focus:border-primary transition-colors duration-300"
+                      id="email" name="email" type="email" placeholder="your@email.com" required
+                      value={form.email}
+                      onChange={(e) => setForm((s) => ({ ...s, email: e.target.value }))}
+                      className="bg-secondary border-border text-foreground placeholder:text-muted-foreground/50 focus-visible:border-green focus-visible:ring-0 focus-visible:ring-offset-0 font-mono text-sm transition-colors duration-200"
                     />
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="subject" className="text-foreground">
-                    Subject
-                  </Label>
+                <div className="space-y-1.5">
+                  <Label htmlFor="subject" className="text-foreground text-xs font-mono font-medium">// subject</Label>
                   <Input
-                    id="subject"
-                    name="subject"
-                    placeholder="Project inquiry"
-                    required
-                    className="bg-card/50 border-border focus:border-primary transition-colors duration-300"
+                    id="subject" name="subject" placeholder="Project inquiry / Collaboration" required
+                    value={form.subject}
+                    onChange={(e) => setForm((s) => ({ ...s, subject: e.target.value }))}
+                    className="bg-secondary border-border text-foreground placeholder:text-muted-foreground/50 focus-visible:border-green focus-visible:ring-0 focus-visible:ring-offset-0 font-mono text-sm transition-colors duration-200"
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="text-foreground">
-                    Message
-                  </Label>
+                <div className="space-y-1.5">
+                  <Label htmlFor="message" className="text-foreground text-xs font-mono font-medium">// message</Label>
                   <Textarea
-                    id="message"
-                    name="message"
+                    id="message" name="message" rows={5} required
                     placeholder="Tell me about your project..."
-                    rows={5}
-                    required
-                    className="bg-card/50 border-border focus:border-primary transition-colors duration-300 resize-none"
+                    value={form.message}
+                    onChange={(e) => setForm((s) => ({ ...s, message: e.target.value }))}
+                    className="bg-secondary border-border text-foreground placeholder:text-muted-foreground/50 focus-visible:border-green focus-visible:ring-0 focus-visible:ring-offset-0 font-mono text-sm resize-none transition-colors duration-200"
                   />
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full bg-primary hover:bg-primary/  text-primary-foreground border-0 py-3 text-lg transition-all duration-300 transform hover:scale-[1.02]"
+                  className="w-full font-mono text-sm gap-2 text-[#0a0a0a] font-semibold hover:opacity-90 transition-opacity"
+                  style={{ background: "var(--green)" }}
                 >
-                  Send Message
+                  <Send className="w-4 h-4" />
+                  send_message()
                 </Button>
               </form>
             </CardContent>
           </Card>
 
-          <div className="space-y-8">
-            <Card className="group bg-gradient-to-br from-card to-secondary/30 backdrop-blur-xl border-border hover:border-accent transition-all duration-500 hover:transform hover:scale-[1.02]">
-              <CardContent className="p-8">
-                <div className="flex items-center space-x-6">
-                  <div className="bg-primary p-4 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <svg
-                      className="w-8 h-8 text-primary-foreground"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-xl text-foreground mb-1">Email</h4>
-                    <p className="text-muted-foreground">
-                      mohammadaliyasin6@gmail.com
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Contact Info Column */}
+          <div className="space-y-3">
+            {contactItems.map(({ Icon, label, value, href, note, external }) => (
+              <a
+                key={label}
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel="noopener noreferrer"
+                className="block group"
+              >
+                <Card className="border-border card-hover shimmer-card bg-card">
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-secondary border border-border flex items-center justify-center group-hover:border-green group-hover:bg-green-muted transition-all duration-300">
+                        <Icon className="w-4 h-4 text-muted-foreground group-hover:text-green transition-colors duration-300" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-mono text-[10px] font-medium text-green">{label}</span>
+                          {external && <ExternalLink className="w-2.5 h-2.5 text-muted-foreground/50 group-hover:text-green transition-colors duration-300" />}
+                        </div>
+                        <p className="text-sm text-foreground font-medium truncate leading-tight">{value}</p>
+                        <p className="text-[11px] text-muted-foreground/60 mt-0.5">{note}</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </a>
+            ))}
 
-            <Card className="group bg-gradient-to-br from-card to-secondary/30 backdrop-blur-xl border-border hover:border-accent transition-all duration-500 hover:transform hover:scale-[1.02]">
-              <CardContent className="p-8">
-                <div className="flex items-center space-x-6">
-                  <div className="bg-accent p-4 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <svg
-                      className="w-8 h-8 text-accent-foreground"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-xl text-foreground mb-1">Location</h4>
-                    <p className="text-muted-foreground">
-                      Remote / Available Worldwide
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <a
-              href="https://www.linkedin.com/in/ali-yasin-0166a0233/"
-              target="_blank"
-              rel="noopener noreferrer"
+            {/* Availability note */}
+            <div
+              className="rounded-xl p-4 font-mono"
+              style={{ background: "var(--green-muted)", border: "1px solid var(--green-border)" }}
             >
-              <Card className="group bg-gradient-to-br from-card to-secondary/30 backdrop-blur-xl border-border hover:border-accent transition-all duration-500 hover:transform hover:scale-[1.02]">
-                <CardContent className="p-8">
-                  <div className="flex items-center space-x-6">
-                    <div className="bg-muted p-4 rounded-2xl shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <svg
-                        className="w-8 h-8 text-muted-foreground"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="text-xl text-foreground mb-1">LinkedIn</h4>
-                      <p className="text-muted-foreground">Connect with me</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </a>
+              <p className="text-xs text-green font-semibold">status.available = true</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Open to freelance · full-time · internship
+              </p>
+            </div>
           </div>
         </div>
       </div>

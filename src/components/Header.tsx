@@ -1,143 +1,160 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import {
-  Drawer,
-  DrawerTrigger,
-  DrawerContent,
-  DrawerClose,
+  Drawer, DrawerTrigger, DrawerContent, DrawerClose,
 } from "./ui/drawer";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { href: "#hero", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
+  { href: "#hero",       label: "About" },
+  { href: "#skills",     label: "Skills" },
+  { href: "#projects",   label: "Projects" },
   { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+  { href: "#contact",    label: "Contact" },
 ];
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState("#hero");
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      const ids = ["hero", "skills", "projects", "experience", "contact"];
+      for (const id of [...ids].reverse()) {
+        const el = document.getElementById(id);
+        if (el && window.scrollY + 90 >= el.offsetTop) {
+          setActive(`#${id}`);
+          break;
+        }
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
-      <div className="max-w-7xl mx-auto px-6 lg:px-1">
-        <div className="flex justify-between items-center h-20">
-          <div className="text-4xl font-medium text-foreground">ali.</div>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-background/95 backdrop-blur-xl border-b border-border"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20">
 
-          <nav className="hidden md:flex space-x-10">
-            <a
-              href="#hero"
-              className="text-muted-foreground hover:text-foreground transition-colors duration-300 relative group"
-            >
-              About
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a
-              href="#skills"
-              className="text-muted-foreground hover:text-foreground transition-colors duration-300 relative group"
-            >
-              Skills
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a
-              href="#projects"
-              className="text-muted-foreground hover:text-foreground transition-colors duration-300 relative group"
-            >
-              Projects
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a
-              href="#experience"
-              className="text-muted-foreground hover:text-foreground transition-colors duration-300 relative group"
-            >
-              Experience
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-full"></span>
-            </a>
-            <a
-              href="#contact"
-              className="text-muted-foreground hover:text-foreground transition-colors duration-300 relative group"
-            >
-              Contact
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-foreground transition-all duration-300 group-hover:w-full"></span>
-            </a>
+          {/* Logo */}
+          <a href="#hero" className="flex items-center gap-2 group">
+            {/* Green dot before logo */}
+            <span
+              className="w-2 h-2 rounded-full flex-shrink-0 animate-green-pulse"
+              style={{ background: "var(--green)" }}
+            />
+            <span className="font-mono font-bold text-xl sm:text-2xl text-foreground group-hover:text-green transition-colors duration-300">
+              ali.dev
+            </span>
+          </a>
+
+          {/* Desktop nav */}
+          <nav className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  active === link.href
+                    ? "text-green"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {link.label}
+                {active === link.href && (
+                  <span
+                    className="absolute bottom-1 left-3 right-3 h-[2px] rounded-full"
+                    style={{ background: "var(--green)" }}
+                  />
+                )}
+              </a>
+            ))}
           </nav>
 
-          <div className="flex items-center gap-4">
-            {/* Mobile Navigation Drawer */}
+          <div className="flex items-center gap-3">
+            {/* Resume button */}
+            <a
+              href="https://drive.google.com/file/d/1e3m1TIBK5wiRtPww_VEYei3dO_wTbDfb/view?usp=sharing"
+              target="_blank" rel="noopener noreferrer"
+              className="hidden md:block"
+            >
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-border text-foreground hover:border-green hover:text-green bg-transparent transition-all duration-300 font-mono text-xs tracking-wide"
+              >
+                resume.pdf ↗
+              </Button>
+            </a>
+
+            {/* Mobile drawer */}
             <Drawer open={isOpen} onOpenChange={setIsOpen}>
               <DrawerTrigger asChild className="md:hidden">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-foreground dark:text-primary"
-                >
-                  <Menu className="h-6 w-6" />
+                <Button variant="ghost" size="icon" className="text-foreground hover:bg-secondary">
+                  <Menu className="h-5 w-5" />
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="bg-background/80 dark:bg-[#0a0a0f]/80 backdrop-blur-xl border-border dark:border-[#1f1f2e] border-t">
-                <div className="flex flex-col gap-4 p-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-lg font-medium text-foreground dark:text-primary">Navigation</h2>
+
+              <DrawerContent className="bg-card border-t border-border">
+                <div className="flex flex-col p-6 pb-10 gap-2">
+                  <div className="flex justify-between items-center mb-5">
+                    <span className="font-mono font-bold text-lg text-foreground flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full" style={{ background: "var(--green)" }} />
+                      ali.dev
+                    </span>
                     <DrawerClose asChild>
-                      <Button variant="ghost" size="icon" className="text-foreground dark:text-primary">
-                        <X className="h-5 w-5" />
+                      <Button variant="ghost" size="icon" className="text-muted-foreground">
+                        <X className="h-4 w-4" />
                       </Button>
                     </DrawerClose>
                   </div>
-                  <nav className="flex flex-col gap-3">
+
+                  <nav className="flex flex-col gap-1">
                     {navLinks.map((link) => (
                       <a
                         key={link.href}
                         href={link.href}
                         onClick={() => setIsOpen(false)}
-                        className="text-muted-foreground dark:text-[#9999b3] hover:text-foreground dark:hover:text-primary transition-colors duration-300 relative group py-2 px-2 rounded-md"
+                        className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
+                          active === link.href
+                            ? "bg-green-muted border border-green text-green"
+                            : "text-muted-foreground hover:bg-secondary hover:text-foreground"
+                        }`}
                       >
+                        {active === link.href && (
+                          <span className="font-mono text-xs text-green">→</span>
+                        )}
                         {link.label}
-                        <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-foreground dark:bg-primary transition-all duration-300 group-hover:w-full"></span>
                       </a>
                     ))}
                   </nav>
-                  <div className="pt-4 border-t border-border dark:border-[#1f1f2e]">
+
+                  <div className="mt-4 pt-4 border-t border-border">
                     <a
                       href="https://drive.google.com/file/d/1aHdPmieG3Bmp0oQKRfFuZX6pXTDnJN01/view?usp=sharing"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      target="_blank" rel="noopener noreferrer"
                       onClick={() => setIsOpen(false)}
                     >
-                      <Button
-                        variant="outline"
-                        className="w-full bg-card dark:bg-[#13131a] border-border dark:border-[#1f1f2e] text-card-foreground dark:text-primary hover:bg-accent dark:hover:bg-[#2d2d44] hover:text-accent-foreground dark:hover:text-[#e8e8f0] transition-all duration-300"
-                      >
-                        Resume
+                      <Button className="w-full font-mono text-xs tracking-wide bg-green text-background hover:bg-green/90">
+                        resume.pdf ↗
                       </Button>
                     </a>
                   </div>
                 </div>
               </DrawerContent>
             </Drawer>
-
-            {/* Desktop Resume Button */}
-            <a
-              href="https://drive.google.com/file/d/1aHdPmieG3Bmp0oQKRfFuZX6pXTDnJN01/view?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:block"
-            >
-              <Button
-                variant="outline"
-                className="bg-card border-border hover:bg-accent transition-all duration-300"
-                size={
-                  window.innerWidth >= 768 ? "lg" : "sm"
-                }
-              >
-                Resume
-              </Button>
-            </a>
           </div>
         </div>
       </div>
     </header>
   );
 }
-
