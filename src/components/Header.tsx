@@ -83,7 +83,7 @@ export function Header() {
           <div className="flex items-center gap-3">
             {/* Resume button */}
             <a
-              href="https://drive.google.com/file/d/1e3m1TIBK5wiRtPww_VEYei3dO_wTbDfb/view?usp=sharing"
+              href="https://drive.google.com/file/d/1jy4x9PbklN8pO8nkaHR9zGVM7dK9QCw9/view?usp=sharing"
               target="_blank" rel="noopener noreferrer"
               className="hidden md:block"
             >
